@@ -2,10 +2,11 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { TableService } from './table.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table',
-  imports: [MatTableModule, MatPaginatorModule],
+  imports: [MatTableModule, MatPaginatorModule, CommonModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -15,6 +16,7 @@ export class TableComponent implements OnInit {
   totalItems = 0;
   pageSize = 10;
   pageIndex = 0;
+  selectedItem: any = null;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator = new MatPaginator;
@@ -34,6 +36,9 @@ export class TableComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.getItems();
+  }
+  alert(row: any) {
+    this.selectedItem = row;
   }
 }
 
