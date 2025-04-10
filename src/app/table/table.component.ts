@@ -3,6 +3,7 @@ import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/pag
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { TableService } from './table.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table',
@@ -24,7 +25,7 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     this.getItems();
   }
-  constructor(private tableService: TableService) {}
+  constructor(private tableService: TableService, private router: Router) {}
   getItems(): void {
     this.tableService.getItems(this.pageIndex + 1, this.pageSize)
       .subscribe((response) => {
@@ -37,8 +38,8 @@ export class TableComponent implements OnInit {
     this.pageSize = event.pageSize;
     this.getItems();
   }
-  alert(row: any) {
-    this.selectedItem = row;
+  goToDetails(row: any) {
+    this.router.navigate(['/details', row.name]);
   }
 }
 
