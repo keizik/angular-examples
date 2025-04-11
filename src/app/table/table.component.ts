@@ -24,6 +24,15 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItems();
+    const storedData = localStorage.getItem('storedData');
+    if (storedData) {
+      const parsedData = JSON.parse(storedData) as StoredData;
+      if (parsedData.date && new Date(parsedData.date).getTime() > new Date('2026-04-10').getTime()) {
+        localStorage.removeItem('storedData');
+      } else {
+        this.router.navigate(['/details', parsedData.selectedName]);
+      }
+    }
   }
   constructor(private tableService: TableService, private router: Router) {}
   getItems(): void {
@@ -37,8 +46,14 @@ export class TableComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.getItems();
+    localStorage.removeItem('storedData');
   }
   goToDetails(row: any) {
+    localStorage.setItem('storedData', JSON.stringify(
+      {  
+        selectedName: row.name, 
+        date: new Date().toString() 
+      } as StoredData));
     this.router.navigate(['/details', row.name]);
   }
 }
@@ -47,4 +62,9 @@ export interface Person {
   name: string;
   age: number;
   city: string;
+}
+
+export interface StoredData {
+  selectedName: string;
+  date: string;
 }
