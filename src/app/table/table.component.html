@@ -1,5 +1,8 @@
 <div>
-    <table mat-table [dataSource]="items" class="mat-elevation-z8">
+    <mat-form-field>
+        <input matInput type="text" [(ngModel)]="filterValue" placeholder="Filter by name" />
+    </mat-form-field>
+    <table mat-table [dataSource]="items | filter: filterValue" class="mat-elevation-z8">
         <!-- name Column -->
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> No. </th>

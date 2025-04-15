@@ -1,13 +1,17 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatTableModule} from '@angular/material/table';
 import { TableService } from './table.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FilterPipe } from "./filter.pipe";
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-table',
-  imports: [MatTableModule, MatPaginatorModule, CommonModule],
+  imports: [MatTableModule, MatPaginatorModule, CommonModule, FilterPipe, MatInputModule, MatFormFieldModule, FormsModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -18,6 +22,7 @@ export class TableComponent implements OnInit {
   pageSize = 10;
   pageIndex = 0;
   selectedItem: any = null;
+  filterValue: string = '';
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator = new MatPaginator;
