@@ -1,2 +1,10 @@
 <p>details works!</p>
 {{ name }}
+
+<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<div>
+    <mat-menu #menu="matMenu">
+        <p><mat-checkbox>1</mat-checkbox></p>
+        <p><mat-checkbox>2</mat-checkbox></p>
+    </mat-menu>
+</div>
