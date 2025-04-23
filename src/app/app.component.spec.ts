@@ -17,13 +17,13 @@ describe('AppComponent', () => {
   it(`should have the 'angular-examples' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-examples');
+    expect(app.title).toEqual('Angular Examples');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-examples');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Angular Table Example');
   });
 });

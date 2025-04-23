@@ -26,6 +26,13 @@ export class TableService {
     });
     //return this.http.get(`${this.apiUrl}?page=${page}&limit=${limit}`);
   }
+
+  addItem(person: { name: string; age: number; city: string; }): Observable<any> {
+    return new Observable((observer) => {
+      observer.next(person);
+      observer.complete();
+    });
+  }
 }
 
 const PAGE1: Person[] = [
