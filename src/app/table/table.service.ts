@@ -9,10 +9,13 @@ export class TableService {
   private apiUrl = 'http://localhost:3000/items';
 
   getItems(page: number, limit: number): Observable<any> {
+
     if (page === 1) {
       return new Observable((observer) => {
-        observer.next({ data: PAGE1, total: 10 });
-        observer.complete();
+        setTimeout(() => {
+          observer.next({ data: PAGE1, total: 10 });
+          observer.complete();
+        }, 10000); // Simulate a delay for the API call
       });
     }
     if (page === 2) {
@@ -22,7 +25,7 @@ export class TableService {
       });
     }
     return new Observable((observer) => {
-      observer.next({ data: [], total: 10 }); 
+      observer.next({ data: [], total: 10 });
     });
     //return this.http.get(`${this.apiUrl}?page=${page}&limit=${limit}`);
   }

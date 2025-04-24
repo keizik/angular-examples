@@ -1,4 +1,4 @@
-<div>
+<div [@openClose]="isOpen ? 'open' : 'closed'" (click)="toggle()" *ngIf="loading === false">
     <mat-form-field>
         <input matInput type="text" [(ngModel)]="filterValue" placeholder="Filter by name" />
     </mat-form-field>
@@ -27,6 +27,9 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page" 
         [length]="totalItems" (page)="onPageChange($event)">
     </mat-paginator>
+</div>
+<div *ngIf="loading" class="loading-spinner">
+    Loading...
 </div>
 <div class="mat-elevation-z8" *ngIf="selectedItem">
     {{selectedItem.name}} - {{selectedItem.age}} - {{selectedItem.city}}

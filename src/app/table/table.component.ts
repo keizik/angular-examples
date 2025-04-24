@@ -8,12 +8,33 @@ import { FilterPipe } from "./filter.pipe";
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { animate, state, style, transition } from '@angular/animations';
+import { trigger } from '@angular/animations';  
 
 @Component({
   selector: 'app-table',
   imports: [MatTableModule, MatPaginatorModule, CommonModule, FilterPipe, MatInputModule, MatFormFieldModule, FormsModule],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.scss'
+  styleUrl: './table.component.scss',
+  animations: [trigger('openClose', [
+    state(
+      'open',
+      style({
+        height: '200px',
+        opacity: 1,
+        backgroundColor: 'yellow',
+      }),
+    ),
+    state(
+      'closed',
+      style({
+        height: '100px',
+        opacity: 0.8,
+        backgroundColor: 'blue',
+      }),
+    ),
+    transition('open => closed', [animate('1s')]),
+    transition('closed => open', [animate('0.5s')])])]
 })
 export class TableComponent implements OnInit {
   items = [];
@@ -23,11 +44,17 @@ export class TableComponent implements OnInit {
   pageIndex = 0;
   selectedItem: any = null;
   filterValue: string = '';
+  isOpen = false;
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
+  loading = false;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator = new MatPaginator;
 
   ngOnInit(): void {
+    this.loading = true;
     this.getItems();
     const storedData = localStorage.getItem('storedData');
     if (storedData) {
@@ -45,6 +72,7 @@ export class TableComponent implements OnInit {
       .subscribe((response) => {
         this.items = response.data;
         this.totalItems = response.total;
+        this.loading = false;
       });
   }
   onPageChange(event: PageEvent): void {
@@ -73,3 +101,18 @@ export interface StoredData {
   selectedName: string;
   date: string;
 }
+
+export const fadeInAnimation =
+  // trigger name for attaching this animation to an element using the [@triggerName] syntax
+  trigger( 'fadeInAnimation', [
+
+    // route 'enter' transition
+    transition( ':enter', [
+
+      // css styles at start of transition
+      style( { opacity: 0 } ),
+
+      // animation and styles at end of transition
+      animate( '.5s', style( { opacity: 1 } ) )
+    ] ),
+  ] );

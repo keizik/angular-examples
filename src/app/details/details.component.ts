@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-details',
